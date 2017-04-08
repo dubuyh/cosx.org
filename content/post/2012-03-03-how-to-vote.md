@@ -70,7 +70,7 @@ slug: how-to-vote
   
 -\frac{1}{2}tr\Big(\sum\_{i=1}^n(x\_i-\bar{x})(x_i-\bar{x})^T\Sigma^{-1}\Big)\\
   
-&\propto p\log(2\pi)-\log|\Sigma|-tr\big(S\Sigma^{-1}\big)$$`
+&\propto p\log(2\pi)-\log|\Sigma|-tr\big(S\Sigma^{-1}\big)$$` 
 
 此外，由于`$\Omega=\Sigma^{-1}$`，令上式最大等价于求解下式的最小值
   
