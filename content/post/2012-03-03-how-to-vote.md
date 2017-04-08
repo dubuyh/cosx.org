@@ -20,7 +20,7 @@ slug: how-to-vote
 
 [latexpage]
 
-## **一、议员投票**
+# **一、议员投票**
 
 这个数据在近几年的图模型文章中常能见到，并且已有很多深入的讨论——包括图结构随时间变化、多图联合估计等情况。本文只涉及单个图结构的估计，此外笔者对政治不了解，因此文中摘录wiki的相关评论。
 
@@ -28,9 +28,8 @@ slug: how-to-vote
 
 图中，两派阵营的状态很明显。绿色的是Democrat，红色的是Republican，蓝色的是Independent。一般认为，民主党在政治上偏左，主张社会自由与进步；而共和党偏右，“reflects American Conservatism”。可以从图中获得很多信息，下面我们对此图做一点深究。
 
-<p style="text-align: center;">
-  ![abc](https://cos.name/wp-content/uploads/2012/03/abc.png "点击看大图")
-</p>
+  ![abc](https://cos.name/wp-content/uploads/2012/03/abc.png)
+
 
 首先，红绿交界处的Lincoln、Nelson、Collins等人是否代表了某种“中间力量”？以下从维基摘录的一段话（<http://en.wikipedia.org/wiki/Bill_Nelson>）或许回答这个问题。
 
@@ -46,43 +45,27 @@ slug: how-to-vote
 
 除了以上分析，还可以获得很多信息。比如可以分析图中的重要节点、用局部估计的方法了解投票关联是如何随时间变化的，等等。
 
-## **二、图模型——罚极大似然**
+# **二、图模型——罚极大似然**
 
 如何才能获得这幅“议员投票图”呢？它的理论依据是什么？估计图结构的方法也有很多，这里只介绍罚极大似然的方法。
 
 图结构估计得常用假设是数据来自正态分布——注意上例的数据为二项分布，banerjee(2007)在论文中探讨了二项分布数据的问题，最终所求解的最优化表达式和正态类似；本文中暂且忽略banerjee(2007)中的细节，把投票数据用正态分布处理。正态分布的概率密度函数为
   
-\[
+`$$f(x)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\Big\{-\frac{1}{2}(X-\mu)^T\Sigma^{-1}(X-\mu)\Big\}$$`
   
-f(x)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\Big\{-\frac{1}{2}(X-\mu)^T\Sigma^{-1}(X-\mu)\Big\}
+假设数据`$x\_1, x\_2, \cdots, x\_n$`来自正态分布，每个`$x\_i$`（p维向量）记录p位议员的一次投票结果。如果用协方差矩阵描述议员投票的相关关系，那么它的极大似然估计为，
   
-\]
+`$$S=\frac{1}{n}\sum\_{i=1}^N(x\_i-\bar{x})(x_i-\bar{x})^T$$`
   
-假设数据$x\_1, x\_2, \cdots, x\_n$来自正态分布，每个$x\_i$（p维向量）记录p位议员的一次投票结果。如果用协方差矩阵描述议员投票的相关关系，那么它的极大似然估计为，
+协方差矩阵的逆`$\Omega=\Sigma^{-1}=\big(\omega\_{ij}\big)\_{p\times p}$`在图模型中被称为Concentration Matrix或者Precision Matrix。该矩阵与偏相关系数有如下关系：
   
-\[
-  
-S=\frac{1}{n}\sum\_{i=1}^N(x\_i-\bar{x})(x_i-\bar{x})^T
-  
-\]
-  
-协方差矩阵的逆$\Omega=\Sigma^{-1}=\big(\omega\_{ij}\big)\_{p\times p}$在图模型中被称为Concentration Matrix或者Precision Matrix。该矩阵与偏相关系数有如下关系：
-  
-\[
-  
-\rho\_{ij|\\\{i,j\}}=-\frac{\omega\_{ij}}{\sqrt{\omega\_{ii}\omega\_{jj}}}
-  
-\]
+`$$\rho\_{ij|\\\{i,j\}}=-\frac{\omega\_{ij}}{\sqrt{\omega\_{ii}\omega\_{jj}}}$$`
 
-由此可以看出，$\Omega$矩阵中的零元素代表了对应议员投票行为的条件独立关系。
+由此可以看出，`$\Omega$`矩阵中的零元素代表了对应议员投票行为的条件独立关系。
 
-为了在高维问题中更精确地估计$\Omega$矩阵，可以采用罚极大似然估计。首先回顾对数似然函数的表达式
+为了在高维问题中更精确地估计`$\Omega$`矩阵，可以采用罚极大似然估计。首先回顾对数似然函数的表达式
   
-\[
-  
-\begin{split}
-  
-\sum\_{i=1}^n\log & f(x\_i)=\frac{np}{2}\log(2\pi)-\frac{n}{2}\log|\Sigma|
+`$$\sum\_{i=1}^n\log & f(x\_i)=\frac{np}{2}\log(2\pi)-\frac{n}{2}\log|\Sigma|
   
 -\frac{1}{2}\sum\_{i=1}^n(x\_i-\bar{x})^T\Sigma^{-1}(x_i-\bar{x})\\
   
@@ -90,37 +73,22 @@ S=\frac{1}{n}\sum\_{i=1}^N(x\_i-\bar{x})(x_i-\bar{x})^T
   
 -\frac{1}{2}tr\Big(\sum\_{i=1}^n(x\_i-\bar{x})(x_i-\bar{x})^T\Sigma^{-1}\Big)\\
   
-&\propto p\log(2\pi)-\log|\Sigma|-tr\big(S\Sigma^{-1}\big)
+&\propto p\log(2\pi)-\log|\Sigma|-tr\big(S\Sigma^{-1}\big)$$`
+此外，由于`$\Omega=\Sigma^{-1}$`，令上式最大等价于求解下式的最小值
   
-\end{split}
+`$$tr(S\Omega)-\log|\Omega|$$`
   
-\]
+在`$\Omega$`矩阵非零元素稀疏的假定下，通过加罚，我们可以得到以下的最优化问题（解空间为正定矩阵）：
   
-此外，由于$\Omega=\Sigma^{-1}$，令上式最大等价于求解下式的最小值
-  
-\[
-  
-tr(S\Omega)-\log|\Omega|
-  
-\]
-  
-在$\Omega$矩阵非零元素稀疏的假定下，通过加罚，我们可以得到以下的最优化问题（解空间为正定矩阵）：
-  
-\begin{equation}
-  
-\min\_{\Omega\succ 0}\Big\{tr(S\Omega)-\log|\Omega|+\lambda\sum\_{i\neq j}|\omega_{ij}|\Big\} \label{obj:main}
-  
-\end{equation}
+`$$\min\_{\Omega\succ 0}\Big\{tr(S\Omega)-\log|\Omega|+\lambda\sum\_{i\neq j}|\omega_{ij}|\Big\} \label{obj:main}$$`
 
 针对此最优化问题，Yuan and Lin(2007)通过maxdet最优化算法求解，banerjee(2007)则借用内点搜索方法(interior point method)，此外Friedman(2007)则将它转化为Lasso 的表达形式再通过shooting 算法求解。还有一类算法是从贝叶斯角度考虑，Bayesian Graphical Lasso,思想很像 Bayesian Lasso.
 
-<div>
-   求解（1）式，得到$\Omega$矩阵，它的非零元素便对应“投票图”中的一条边。
-</div>
+求解（1）式，得到`$\Omega$`矩阵，它的非零元素便对应“投票图”中的一条边。
 
-&nbsp;
 
-## 三、数据与代码
+
+# ** 三、数据与代码**
 
 R数据下载——数据中包含三个矩阵（数据来自http://www.senate.gov）。
 
@@ -130,7 +98,8 @@ R数据下载——数据中包含三个矩阵（数据来自http://www.senate.g
 
 代码很简单，只有以下几行：
 
-<pre>library(spaceExt)
+```r
+library(spaceExt)
 library(igraph)
 load("senate.RData")
 #移除投票缺失较多的议员
@@ -149,7 +118,8 @@ g=graph.adjacency((p&gt;(0.055)),mode="undirected",diag=F)
 V(g)\$color=(partyD+2+partyI*2)
 V(g)\$label=idList[sel,3]
 par(mar=c(0,0,0,0))
-plot(g,layout=layout.fruchterman.reingold, edge.color=grey(0.5),vertex.size=10)</pre>
+plot(g,layout=layout.fruchterman.reingold, edge.color=grey(0.5),vertex.size=10)
+```
 
 相关文章补充：
 
