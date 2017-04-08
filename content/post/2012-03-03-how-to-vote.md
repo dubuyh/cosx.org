@@ -30,7 +30,6 @@ slug: how-to-vote
 
   ![abc](https://cos.name/wp-content/uploads/2012/03/abc.png)
 
-
 首先，红绿交界处的Lincoln、Nelson、Collins等人是否代表了某种“中间力量”？以下从维基摘录的一段话（<http://en.wikipedia.org/wiki/Bill_Nelson>）或许回答这个问题。
 
 > **Nelson’s** votes have tended to be more liberal than conservative. He has received high ratings from left-of-center groups such as Americans for Democratic Action, and low ones from right-of-center groups such as the Eagle Forum and the Club for Growth. According to ratings by the National Journal, Nelson’s votes have been liberal on economic matters, moderate on social issues, and liberal but close to the center on foreign policy.
@@ -85,8 +84,6 @@ slug: how-to-vote
 针对此最优化问题，Yuan and Lin(2007)通过maxdet最优化算法求解，banerjee(2007)则借用内点搜索方法(interior point method)，此外Friedman(2007)则将它转化为Lasso 的表达形式再通过shooting 算法求解。还有一类算法是从贝叶斯角度考虑，Bayesian Graphical Lasso,思想很像 Bayesian Lasso.
 
 求解（1）式，得到`$\Omega$`矩阵，它的非零元素便对应“投票图”中的一条边。
-
-
 
 # ** 三、数据与代码**
 
