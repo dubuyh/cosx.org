@@ -18,8 +18,6 @@ tags:
 slug: how-to-vote
 ---
 
-[latexpage]
-
 # **一、议员投票**
 
 这个数据在近几年的图模型文章中常能见到，并且已有很多深入的讨论——包括图结构随时间变化、多图联合估计等情况。本文只涉及单个图结构的估计，此外笔者对政治不了解，因此文中摘录wiki的相关评论。
@@ -73,6 +71,7 @@ slug: how-to-vote
 -\frac{1}{2}tr\Big(\sum\_{i=1}^n(x\_i-\bar{x})(x_i-\bar{x})^T\Sigma^{-1}\Big)\\
   
 &\propto p\log(2\pi)-\log|\Sigma|-tr\big(S\Sigma^{-1}\big)$$`
+
 此外，由于`$\Omega=\Sigma^{-1}$`，令上式最大等价于求解下式的最小值
   
 `$$tr(S\Omega)-\log|\Omega|$$`
