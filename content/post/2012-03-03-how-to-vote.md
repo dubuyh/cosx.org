@@ -63,14 +63,10 @@ slug: how-to-vote
 为了在高维问题中更精确地估计`$\Omega$`矩阵，可以采用罚极大似然估计。首先回顾对数似然函数的表达式
   
 `$$\sum\_{i=1}^n\log & f(x\_i)=\frac{np}{2}\log(2\pi)-\frac{n}{2}\log|\Sigma|
-  
--\frac{1}{2}\sum\_{i=1}^n(x\_i-\bar{x})^T\Sigma^{-1}(x_i-\bar{x})\\
-  
-&=\frac{np}{2}\log(2\pi)-\frac{n}{2}\log|\Sigma|
-  
--\frac{1}{2}tr\Big(\sum\_{i=1}^n(x\_i-\bar{x})(x_i-\bar{x})^T\Sigma^{-1}\Big)\\
-  
-&\propto p\log(2\pi)-\log|\Sigma|-tr\big(S\Sigma^{-1}\big)$$` 
+-\frac{1}{2}\sum\_{i=1}^n(x\_i-\bar{x})^T\Sigma^{-1}(x_i-\bar{x})\\ 
+&=\frac{np}{2}\log(2\pi)-\frac{n}{2}\log|\Sigma| 
+-\frac{1}{2}tr\Big(\sum\_{i=1}^n(x\_i-\bar{x})(x_i-\bar{x})^T\Sigma^{-1}\Big)\\  
+&\propto p\log(2\pi)-\log|\Sigma|-tr\big(S\Sigma^{-1}\big)$$`
 
 此外，由于`$\Omega=\Sigma^{-1}$`，令上式最大等价于求解下式的最小值
   
